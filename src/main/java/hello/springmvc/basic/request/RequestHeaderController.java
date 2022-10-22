@@ -25,6 +25,7 @@ public class RequestHeaderController {
                           @RequestHeader MultiValueMap<String, String> headerMap,
                           //MultiValueMap -> 하나의 키의 여러가지 value가 들어갈 수 있음
                           @RequestHeader("host") String host,
+                          @RequestHeader("connection") String con,
                           @CookieValue(value = "myCookie", required = false) String cookie
                           ){
 
@@ -34,6 +35,7 @@ public class RequestHeaderController {
         log.info("locale={}", locale);              //언어 정보
         log.info("headerMap={}", headerMap);        //모든 헤더정보
         log.info("header host={}", host);           //호스트
+        log.info("connection={}", con);           //커넥션
         log.info("myCookie={}", cookie);            //쿠키정보
 
         return "ok";

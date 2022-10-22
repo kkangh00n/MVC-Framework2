@@ -1,7 +1,9 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,6 +100,36 @@ public class RequestParamController {
     //요청 정보의 파라미터들을 Map으로 받아드릴수 있음
     public String requestParamMap(@RequestParam Map<String, Object> paramMap){
         log.info("username = {}, age = {}", paramMap.get("username"), paramMap.get("age"));
+        return "ok";
+    }
+    @ResponseBody
+    @RequestMapping("/model-attribute")
+    //0. 요청 파라미터를 받아서 객체를 만들고, 그 객체에 값을 넣어준다.
+    public String modelAttrribute (@RequestParam String username, @RequestParam int age){
+        HelloData helloData = new HelloData();
+        helloData.setUsername(username);
+        helloData.setAge(age);
+
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    //1. 필요한 객체 helloData 생성 -> 객체의 프로퍼티(getter, setter)를 찾는다 -> 프로퍼티의 setter를 호출해서 값 입력한다.
+    // Model = 쿼리 파라미터 정보를 뷰에 넘기기 위함
+    // @ModelAttribute = 쿼리 파라미터 정보를 객체에 담아서 로직을 수행하기 위함
+    public String modelAttrributeV1 (@ModelAttribute HelloData helloData){
+
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    //2. @ModelAttribute를 생략할 수 있다.
+    public String modelAttrributeV2 (HelloData helloData){
+
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
         return "ok";
     }
 }

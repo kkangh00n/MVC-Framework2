@@ -1,0 +1,14 @@
+Http 요청메시지 3가지
+1. Get 메소드로 쿼리파라미터를 이용한 전달      @RequestParam
+2. Post 메소드로 Html Form을 이용한 전달      @RequestParam
+3. Http message body에 데이터를 직접 담아서 전달 (Get을 제외한 나머지 메소드)
+    1) String 메시지  받기 : @RequestBody String messageBody
+    2) Json 메시지 받기 : @RequestBody HelloData helloData
+    # 파라미터 변수를 객체에 받기 : @ModelAttribute HelloData helloData
+
+Http 응답메시지 3가지
+1. 정적 리소스 전달 (Html)     return html 파일 경로
+2. 동적 리소스 전달 (뷰 템플릿 이용한 Html 전달)        Model에 값을 넣고 return html 파일 경로
+3. Http message body에 Json같은 형식에 데이터 전달 (Text, Json)
+    1) String 메시지를 Http 메시지 바디에 그대로 보내기 : @ResponseBody
+    2) Json 메시지를 Http 메시지 바디에 그대로 보내기 : @ResponseBody & 반환형을 객체로! + @ResponseStatus 상태코드
